@@ -107,9 +107,20 @@ apiApp.use(limiterAPI)
       })
 
       json = await page.evaluate(() => {
-        const value1 = document.getElementById('success').firstChild.nodeValue
-        const value2 = document.getElementById('query').firstChild.nodeValue
-        const value3 = document.getElementById('result').firstChild.nodeValue
+        // Helper function to safely extract the nodeValue
+        const getSafeValue = (id) => {
+          const element = document.getElementById(id);
+          // Return an empty string if the element is not found OR if it has no children
+          if (!element || !element.firstChild) {
+            return '';
+          }
+        
+          // Return the trimmed node value if it exists
+          return element.firstChild.nodeValue.trim();
+        };
+        const value1 = getSafeValue('success');
+        const value2 = getSafeValue('query');
+        const value3 = getSafeValue('result');
 
         return {
           success: value1,
