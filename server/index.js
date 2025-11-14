@@ -112,6 +112,7 @@ apiApp.use(limiterAPI)
           const element = document.getElementById(id);
           // Return an empty string if the element is not found OR if it has no children
           if (!element || !element.firstChild) {
+            console.log ("Failed extracting " + id);
             return '';
           }
         
